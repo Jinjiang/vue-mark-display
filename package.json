@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "rm -Rf dist && rollup -c -w",
+    "build": "rm -Rf dist && rollup -c --environment BUILD:production",
+    "examples": "parcel examples/index.html -d tmp",
+    "examples:build": "rm -Rf docs && parcel build examples/index.html --public-url ./ -d docs",
+    "lint": "prettier --write .{,/examples,/src}/*.{js,json,css,md,vue}"
   },
   "keywords": [],
   "author": "Jinjiang <zhaojinjiang@me.com>",
