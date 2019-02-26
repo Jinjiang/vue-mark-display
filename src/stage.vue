@@ -9,7 +9,7 @@
 
 <template>
   <div
-    class="markshow stage"
+    class="v-mark-display stage"
     :class="[`stage-${currentType}`]"
     :style="[`font-size: ${fontSize}px`, currentBg].join('; ')"
   >

@@ -1,19 +1,19 @@
 <template>
-  <v-markshow
+  <v-mark-display
     keyboard-ctrl
     url-hash-ctrl
     auto-font-size
     :markdown="data"
     @title="setTitle"
-  ></v-markshow>
+  ></v-mark-display>
 </template>
 
 <script>
-import VMarkshow from "../src/markshow.vue";
+import VMarkDisplay from "../index";
 import data from "./data.js";
 
 export default {
-  components: { VMarkshow },
+  components: { VMarkDisplay },
   data() {
     return { data };
   },

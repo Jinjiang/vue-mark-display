@@ -1,6 +1,6 @@
 {
-  "name": "markshow",
-  "version": "2.0.0",
+  "name": "v-mark-display",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
