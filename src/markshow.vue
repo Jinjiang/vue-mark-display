@@ -60,17 +60,17 @@ export default {
   data() {
     const { markdown, src, page, autoFontSize, urlHashCtrl } = this;
     if (src) {
-      request(src, (error, markdown) => {
+      request(src, (error, md) => {
         if (error) {
           console.error(error);
         }
-        if (content) {
-          this.slides = parseMarkdown(markdown);
+        if (md) {
+          this.raw = md;
         }
       });
     }
     return {
-      slides: markdown ? parseMarkdown(markdown) : genLoadingSlide(),
+      raw: markdown,
       currentPage: page || (urlHashCtrl ? parseInt(getHash(), 10) || 1 : 1),
       fontSize: autoFontSize ? parseFontSize() : defaultFontSize
     };
@@ -124,6 +124,10 @@ export default {
     }
   },
   computed: {
+    slides() {
+      const { raw } = this;
+      return raw ? parseMarkdown(raw) : genLoadingSlide();
+    },
     title() {
       const first = this.slides[0];
       return (first && first.meta ? first.meta.title : null) || "Slides";
@@ -137,7 +141,14 @@ export default {
       return slides[currentPage - 1].meta.type || "normal";
     }
   },
+  created() {
+    const { title } = this;
+    this.$emit("title", { title });
+  },
   watch: {
+    title() {
+      this.$emit("title", { title });
+    },
     currentPage(to, from) {
       const { slides, urlHashCtrl } = this;
       const slide = slides[to - 1];

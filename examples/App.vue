@@ -3,18 +3,24 @@
     keyboard-ctrl
     url-hash-ctrl
     auto-font-size
-    :markdown="example"
+    :markdown="data"
+    @title="setTitle"
   ></v-markshow>
 </template>
 
 <script>
 import VMarkshow from "../src/markshow.vue";
-import example from "./data.js";
+import data from "./data.js";
 
 export default {
   components: { VMarkshow },
   data() {
-    return { example };
+    return { data };
+  },
+  methods: {
+    setTitle({ title }) {
+      document.title = [title, "Example"].filter(Boolean).join(" - ");
+    }
   }
 };
 </script>
