@@ -1,5 +1,5 @@
 <!--
-  - props: markdown, current, !autosize
+  - props: markdown, page, autoFontSize, keyboardCtrl, urlHashCtrl
   - data: slides[{ html, meta{ bg, type }, visited }], current, fontSize
   - provide: current, slides
   - methods: goto({ page }), goNext(), goPrev(), goFirst(), goLast()
@@ -13,14 +13,25 @@
     :class="[`stage-${currentType}`]"
     :style="{ fontSize: `${fontSize}px`, backgroundImage: currentBg }"
   >
-    <m-slides @preview="preview" />
-    <m-ctrl @change="change" />
-    <m-preview ref="preview" />
+    <m-slides @preview="preview" :current="currentPage"></m-slides>
+    <m-ctrl @change="change" :current="currentPage"></m-ctrl>
+    <m-preview ref="preview"></m-preview>
   </div>
 </template>
 
 <script>
-import { genSlide, genMarkdown, parseMarkdown, parseFontSize } from "./util";
+import {
+  genSlide,
+  genMarkdown,
+  parseMarkdown,
+  parseFontSize,
+  genMixinGlobalEvents,
+  keydownHandler,
+  resizeHandler,
+  defaultFontSize,
+  getHash,
+  setHash
+} from "./util";
 import MSlides from "./slides.vue";
 import MCtrl from "./ctrl.vue";
 import MPreview from "./preview.vue";
@@ -31,17 +42,23 @@ export default {
     MCtrl,
     MPreview
   },
+  mixins: [
+    genMixinGlobalEvents("keydown", keydownHandler),
+    genMixinGlobalEvents("resize", resizeHandler)
+  ],
   props: {
     markdown: { type: String, default: genMarkdown() },
-    page: { type: Number, default: 1 },
-    autosize: { type: Boolean, default: false }
+    page: { type: Number },
+    autoFontSize: { type: Boolean, default: false },
+    keyboardCtrl: { type: Boolean, default: false },
+    urlHashCtrl: { type: Boolean, default: false }
   },
   data() {
-    const { markdown, page, autosize } = this;
+    const { markdown, page, autoFontSize, urlHashCtrl } = this;
     return {
       slides: parseMarkdown(markdown),
-      currentPage: page,
-      fontSize: autosize ? parseFontSize() : 14
+      currentPage: page || (urlHashCtrl ? parseInt(getHash(), 10) || 1 : 1),
+      fontSize: autoFontSize ? parseFontSize() : defaultFontSize
     };
   },
   provide() {
@@ -100,23 +117,21 @@ export default {
     },
     currentType() {
       const { slides, currentPage } = this;
-      console.log(slides, currentPage);
       return slides[currentPage - 1].meta.type || "normal";
     }
   },
   watch: {
     currentPage(to, from) {
-      const { slides } = this;
+      const { slides, urlHashCtrl } = this;
       const slide = slides[to - 1];
       if (slide) {
         slide.visited = true;
       }
-      // todo: update hash
+      if (urlHashCtrl) {
+        setHash(to);
+      }
       this.$emit("change", { from, to });
     }
-  },
-  created() {
-    // todo: read hash and set current page
   }
 };
 </script>

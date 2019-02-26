@@ -15,16 +15,16 @@
         class="slide-content"
         :style="slide.meta.style"
         v-html="slide.html"
-      />
+      ></div>
     </div>
   </transition-group>
 </template>
 
 <script>
-import injectedMixin from "./injected";
+import { mixinInjected } from "./util";
 
 export default {
-  mixins: [injectedMixin],
+  mixins: [mixinInjected],
   methods: {
     catchPreview(event) {
       const {

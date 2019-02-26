@@ -8,28 +8,33 @@
 <template>
   <div class="ctrl">
     <transition name="ctrl-list">
-      <ol v-if="ctrl.shown" class="ctrl-list">
+      <ol v-if="visible" class="ctrl-list">
         <li
           v-for="(slide, index) in computedSlides"
           :key="index"
           :class="{ current: computedCurrentPage === index + 1 }"
-          @click="change(computedCurrentPage);"
+          @click="change(index + 1);"
         >
           {{ adminMode || slide.visited ? slide.title : "[slide]" }}
         </li>
       </ol>
     </transition>
     <button class="ctrl-btn" @click="toggle">
-      {{ current + 1 }} / {{ slides.length }}
+      {{ computedCurrentPage }} / {{ computedSlides.length }}
     </button>
   </div>
 </template>
 
 <script>
-import injectedMixin from "./injected";
+import { mixinInjected, genMixinGlobalEvents } from "./util";
 
 export default {
-  mixins: [injectedMixin],
+  mixins: [
+    mixinInjected,
+    genMixinGlobalEvents("click", function() {
+      this.visible = false;
+    })
+  ],
   data() {
     return {
       visible: false,
@@ -45,20 +50,6 @@ export default {
     },
     change(page) {
       this.$emit("change", { page });
-    }
-  },
-  mounted() {
-    const clickHandler = event => {
-      this.visible = false;
-    };
-    document.addEventListener("click", this.clickHandler);
-    this.clickHandler = clickHandler;
-  },
-  destroyed() {
-    const { clickHandler } = this;
-    if (clickHandler) {
-      delete this.clickHandler;
-      document.removeEventListener("click", clickHandler);
     }
   }
 };
