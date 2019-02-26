@@ -30,5 +30,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "dependencies": {
+    "marked": "^0.6.1"
   }
 }

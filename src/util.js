@@ -1,20 +1,29 @@
-export const genMarkdown = () => "# Hello World";
+export { parse as parseMarkdown } from "./parser";
+
+export const genMarkdown = () => "# Hello World\n\n----\n\ncontent\n";
 
 export const genSlide = () => [
   {
     html: "<h1>Hello World</h1>",
-    title: "Hello World",
-    meta: { bg: "", type: "", style: "" },
+    meta: { title: "Hello World", type: "", slideStyle: "", bgStyle: "" },
     visited: false
   },
   {
     html: "<p>content</p>",
-    title: "content",
-    meta: { bg: "", type: "", style: "" },
+    meta: { title: "content", type: "", slideStyle: "", bgStyle: "" },
     visited: false
   }
 ];
 
+export const genLoadingSlide = () => [
+  {
+    html: "<p>Loading...</p>",
+    meta: { title: "Loading", type: "", slideStyle: "", bgStyle: "" },
+    visited: false
+  }
+];
+
+// url hash ctrl
 export const setHash = page => location.replace(`#${page}`);
 
 export const getHash = () => {
@@ -22,19 +31,13 @@ export const getHash = () => {
   return matched ? matched[1] : "";
 };
 
-export const parseMarkdown = markdown => {
-  // todo
-  return genSlide();
-};
-export const parseFontSize = () => {
-  const area = window.innerWidth * window.innerHeight;
-  const fontSize = parseInt(Math.sqrt(area / 240), 10);
-  // console.log('font size', fontSize);
-  return fontSize;
-};
-
+// auto font size
 export const defaultFontSize = 14;
 
+export const parseFontSize = () =>
+  parseInt(Math.sqrt((window.innerWidth * window.innerHeight) / 240), 10);
+
+// mixins
 export const mixinInjected = {
   props: { slides: Array, current: Number },
   inject: {
@@ -74,6 +77,7 @@ export const genMixinGlobalEvents = (type, handler, host = window) => {
   };
 };
 
+// event handlers
 export const keydownHandler = function(event) {
   const vm = this;
   if (!vm.keyboardCtrl) {
@@ -123,4 +127,45 @@ export const resizeHandler = function() {
     return;
   }
   vm.fontSize = parseFontSize();
+};
+
+// Make the actual CORS request.
+export const request = (url, cb) => {
+  // All HTML5 Rocks properties support CORS.
+  // const url = 'http://updates.html5rocks.com';
+
+  const xhr = createCORSRequest("GET", url);
+  if (!xhr) {
+    // console.log('CORS not supported');
+    return;
+  }
+
+  // Response handlers.
+  xhr.onload = function() {
+    const text = xhr.responseText;
+    cb(null, text);
+  };
+
+  xhr.onerror = function() {
+    cb(new Error("Woops, there was an error making the request."), null);
+  };
+
+  xhr.send();
+};
+
+// Create the XHR object.
+const createCORSRequest = (method, url) => {
+  const xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
 };

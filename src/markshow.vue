@@ -11,7 +11,7 @@
   <div
     class="stage"
     :class="[`stage-${currentType}`]"
-    :style="{ fontSize: `${fontSize}px`, backgroundImage: currentBg }"
+    :style="[`font-size: ${fontSize}px`, currentBg].join('; ')"
   >
     <m-slides @preview="preview" :current="currentPage"></m-slides>
     <m-ctrl @change="change" :current="currentPage"></m-ctrl>
@@ -22,6 +22,7 @@
 <script>
 import {
   genSlide,
+  genLoadingSlide,
   genMarkdown,
   parseMarkdown,
   parseFontSize,
@@ -30,11 +31,13 @@ import {
   resizeHandler,
   defaultFontSize,
   getHash,
-  setHash
+  setHash,
+  request
 } from "./util";
 import MSlides from "./slides.vue";
 import MCtrl from "./ctrl.vue";
 import MPreview from "./preview.vue";
+import { parse } from "path";
 
 export default {
   components: {
@@ -47,16 +50,27 @@ export default {
     genMixinGlobalEvents("resize", resizeHandler)
   ],
   props: {
-    markdown: { type: String, default: genMarkdown() },
+    markdown: { type: String },
+    src: { type: String },
     page: { type: Number },
     autoFontSize: { type: Boolean, default: false },
     keyboardCtrl: { type: Boolean, default: false },
     urlHashCtrl: { type: Boolean, default: false }
   },
   data() {
-    const { markdown, page, autoFontSize, urlHashCtrl } = this;
+    const { markdown, src, page, autoFontSize, urlHashCtrl } = this;
+    if (src) {
+      request(src, (error, markdown) => {
+        if (error) {
+          console.error(error);
+        }
+        if (content) {
+          this.slides = parseMarkdown(markdown);
+        }
+      });
+    }
     return {
-      slides: parseMarkdown(markdown),
+      slides: markdown ? parseMarkdown(markdown) : genLoadingSlide(),
       currentPage: page || (urlHashCtrl ? parseInt(getHash(), 10) || 1 : 1),
       fontSize: autoFontSize ? parseFontSize() : defaultFontSize
     };
@@ -110,10 +124,13 @@ export default {
     }
   },
   computed: {
-    // todo: removed?
+    title() {
+      const first = this.slides[0];
+      return (first && first.meta ? first.meta.title : null) || "Slides";
+    },
     currentBg() {
       const { slides, currentPage } = this;
-      return slides[currentPage - 1].meta.bg || "none";
+      return slides[currentPage - 1].meta.bgStyle || "";
     },
     currentType() {
       const { slides, currentPage } = this;

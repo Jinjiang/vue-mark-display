@@ -13,7 +13,7 @@
     >
       <div
         class="slide-content"
-        :style="slide.meta.style"
+        :style="slide.meta.slideStyle"
         v-html="slide.html"
       ></div>
     </div>

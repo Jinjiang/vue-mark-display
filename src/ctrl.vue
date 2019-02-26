@@ -15,7 +15,7 @@
           :class="{ current: computedCurrentPage === index + 1 }"
           @click="change(index + 1);"
         >
-          {{ adminMode || slide.visited ? slide.title : "[slide]" }}
+          {{ getTitle(slide) }}
         </li>
       </ol>
     </transition>
@@ -50,6 +50,11 @@ export default {
     },
     change(page) {
       this.$emit("change", { page });
+    },
+    getTitle({ visited, title }) {
+      const { adminMode } = this;
+      const output = adminMode || visited ? title.substr(0, 20) : "";
+      return output || "[slide]";
     }
   }
 };

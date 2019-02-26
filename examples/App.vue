@@ -1,11 +1,21 @@
 <template>
-  <v-markshow keyboard-ctrl url-hash-ctrl auto-font-size></v-markshow>
+  <v-markshow
+    keyboard-ctrl
+    url-hash-ctrl
+    auto-font-size
+    :markdown="example"
+  ></v-markshow>
 </template>
 
 <script>
 import VMarkshow from "../src/markshow.vue";
+import example from "./data.js";
+
 export default {
-  components: { VMarkshow }
+  components: { VMarkshow },
+  data() {
+    return { example };
+  }
 };
 </script>
 
