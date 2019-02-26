@@ -1,5 +1,5 @@
 <!--
-  - props: markdown, current.sync, !autoresize
+  - props: markdown, current, !autosize
   - data: slides[{ html, meta{ bg, type }, visited }], current, fontSize
   - provide: current, slides
   - methods: goto({ page }), goNext(), goPrev(), goFirst(), goLast()
@@ -9,7 +9,8 @@
 
 <template>
   <div
-    :class="['stage', `stage-${currentType}`]"
+    class="stage"
+    :class="[`stage-${currentType}`]"
     :style="{ fontSize: `${fontSize}px`, backgroundImage: currentBg }"
   >
     <m-slides @preview="preview" />
@@ -93,19 +94,20 @@ export default {
   },
   computed: {
     // todo: removed?
-    currentBgImg() {
+    currentBg() {
       const { slides, currentPage } = this;
-      return slides[currentPage].meta.bg || "none";
+      return slides[currentPage - 1].meta.bg || "none";
     },
     currentType() {
       const { slides, currentPage } = this;
-      return slides[currentPage].meta.type || "normal";
+      console.log(slides, currentPage);
+      return slides[currentPage - 1].meta.type || "normal";
     }
   },
   watch: {
     currentPage(to, from) {
       const { slides } = this;
-      const slide = slides[to];
+      const slide = slides[to - 1];
       if (slide) {
         slide.visited = true;
       }
@@ -120,5 +122,90 @@ export default {
 </script>
 
 <style>
-/* todo */
+.stage {
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0.25em 0;
+  font-weight: 500;
+}
+
+li {
+  text-align: initial;
+}
+img {
+  max-width: 100%;
+  max-height: 80vh;
+}
+blockquote {
+  font-size: 0.75em;
+  text-align: initial;
+  background-color: rgba(127, 127, 127, 0.2);
+  padding: 1em;
+  border-radius: 0.25em;
+}
+pre {
+  text-align: initial;
+}
+
+a {
+  font-size: 0.75em;
+  padding: 0.125em 0.25em; /*margin: 0 -0.25em;*/
+  background-color: gray;
+  color: white;
+  border-radius: 0.25em;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+a:hover {
+  background-color: blue;
+  color: white;
+}
+
+strong {
+  color: red;
+}
+em {
+  color: blue;
+}
+s,
+strike {
+  color: gray;
+}
+code {
+  font-size: 0.75em;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0.25em 0;
+  background-color: white;
+}
+th,
+td {
+  border: 1px solid gray;
+  padding: 0.25em;
+}
+thead {
+  background-color: #f0f0f0;
+}
+tbody > tr:nth-child(2n) {
+  background-color: #f0f0f0;
+}
+
+hr {
+  width: 90%;
+  border-width: 2px;
+  border-style: dashed;
+}
 </style>

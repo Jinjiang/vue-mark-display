@@ -7,7 +7,7 @@
 
 <template>
   <div class="ctrl">
-    <transition>
+    <transition name="ctrl-list">
       <ol v-if="ctrl.shown" class="ctrl-list">
         <li
           v-for="(slide, index) in computedSlides"
@@ -65,5 +65,50 @@ export default {
 </script>
 
 <style>
-/* todo */
+.ctrl {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  font-size: 16px;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+.ctrl:hover {
+  opacity: 1;
+}
+.ctrl-btn {
+  display: block;
+}
+.ctrl-list-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.ctrl-list-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.ctrl-list {
+  transition: opacity 0.3s, transform 0.3s;
+  overflow: auto;
+  width: 160px;
+  max-height: 300px;
+  border: 1px solid gray;
+  box-shadow: 0 0 3px 3px silver;
+  padding: 3px;
+  background-color: white;
+}
+.ctrl-list li {
+  padding: 3px;
+  list-style-position: inside;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.ctrl-list li:hover {
+  background-color: #f0f0f0;
+}
+.ctrl-list li.current {
+  background-color: silver;
+  color: white;
+}
 </style>

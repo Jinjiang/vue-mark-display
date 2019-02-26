@@ -1,19 +1,14 @@
 <template>
-  <Slides :slides="slides"></Slides>
+  <v-markshow></v-markshow>
 </template>
 
 <script>
-import Slides from "../src/markshow.vue";
+import VMarkshow from "../src/markshow.vue";
 export default {
-  components: { Slides },
-  data() {
-    return {
-      slides: [
-        { meta: { style: { color: "#f90" } }, html: "<h1>Hello World</h1>" }
-      ]
-    };
-  }
+  components: { VMarkshow }
 };
 </script>
 
-<style></style>
+<style>
+/* todo */
+</style>
