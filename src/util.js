@@ -92,7 +92,7 @@ export const keydownHandler = function(event) {
       vm.goPrev();
       break;
     case 34:
-      // console.log('left');
+      // console.log('right');
       vm.goNext();
       break;
     case 37:

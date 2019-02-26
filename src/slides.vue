@@ -52,6 +52,12 @@ export default {
   right: 0;
   bottom: 0;
 }
+.slide-enter {
+  opacity: 0; /* transform: scale(0.8); */
+}
+.slide-leave-to {
+  opacity: 0; /* transform: scale(1.2); */
+}
 @media print {
   /* @page {size: landscape; margin: 0;} */
   .slide {
@@ -77,11 +83,5 @@ export default {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-}
-.slide-enter {
-  opacity: 0; /* transform: scale(0.8); */
-}
-.slide-leave-to {
-  opacity: 0; /* transform: scale(1.2); */
 }
 </style>

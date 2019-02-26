@@ -9,7 +9,7 @@
 
 <template>
   <div
-    class="stage"
+    class="markshow stage"
     :class="[`stage-${currentType}`]"
     :style="[`font-size: ${fontSize}px`, currentBg].join('; ')"
   >
@@ -203,7 +203,7 @@ pre {
 
 a {
   font-size: 0.75em;
-  padding: 0.125em 0.25em; /*margin: 0 -0.25em;*/
+  padding: 0.125em 0.25em;
   background-color: gray;
   color: white;
   border-radius: 0.25em;
