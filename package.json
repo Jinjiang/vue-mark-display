@@ -2,7 +2,10 @@
   "name": "v-mark-display",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/v-mark-display.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "rm -Rf dist && rollup -c -w",
     "build": "rm -Rf dist && rollup -c --environment BUILD:production",
