@@ -130,13 +130,18 @@ export default {
       const first = this.slides[0];
       return (first && first.meta ? first.meta.title : null) || "Slides";
     },
-    currentBg() {
+    currentMeta() {
       const { slides, currentPage } = this;
-      return slides[currentPage - 1].meta.bgStyle || "";
+      const currentSlide = slides[currentPage - 1] || {};
+      return currentSlide.meta || {};
+    },
+    currentBg() {
+      const { currentMeta } = this;
+      return currentMeta.bgStyle || "";
     },
     currentType() {
-      const { slides, currentPage } = this;
-      return slides[currentPage - 1].meta.type || "normal";
+      const { currentMeta } = this;
+      return currentMeta.type || "normal";
     }
   },
   created() {
