@@ -40,24 +40,17 @@ export const parseFontSize = () =>
 // mixins
 export const mixinInjected = {
   props: { slides: Array, current: Number },
-  inject: {
-    injectedSlides: {
-      from: "slides",
-      default: genSlide()
-    },
-    injectedCurrent: {
-      from: "currentPage",
-      default: 1
-    }
-  },
+  inject: ["stage"],
   computed: {
     computedSlides() {
-      const { slides, injectedSlides } = this;
-      return slides || injectedSlides || genSlide();
+      const { slides, stage } = this;
+      const injectedSlides = stage.slides || genSlide();
+      return slides || injectedSlides;
     },
     computedCurrentPage() {
-      const { current, injectedCurrent } = this;
-      return current || injectedCurrent || 1;
+      const { current, stage } = this;
+      const injectedCurrent = stage.currentPage || 1;
+      return current || injectedCurrent;
     }
   }
 };

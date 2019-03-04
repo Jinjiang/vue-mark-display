@@ -37,7 +37,6 @@ import {
 import MSlides from "./slides.vue";
 import MCtrl from "./ctrl.vue";
 import MPreview from "./preview.vue";
-import { parse } from "path";
 
 export default {
   components: {
@@ -76,8 +75,7 @@ export default {
     };
   },
   provide() {
-    const { slides, currentPage } = this;
-    return { slides, currentPage };
+    return { stage: this };
   },
   methods: {
     goto(page) {
@@ -147,6 +145,7 @@ export default {
   },
   watch: {
     title() {
+      const { title } = this;
       this.$emit("title", { title });
     },
     currentPage(to, from) {
