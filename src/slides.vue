@@ -52,16 +52,13 @@ export default {
   right: 0;
   bottom: 0;
 }
-.slide-enter {
-  opacity: 0; /* transform: scale(0.8); */
-}
-.slide-leave-to {
-  opacity: 0; /* transform: scale(1.2); */
+@page {
+  size: legal landscape;
+  margin: 0;
 }
 @media print {
-  /* @page {size: landscape; margin: 0;} */
   .slide {
-    page-break-after: always;
+    break-after: always;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -69,6 +66,12 @@ export default {
     display: block !important;
     opacity: 1 !important;
   }
+}
+.slide-enter {
+  opacity: 0; /* transform: scale(0.8); */
+}
+.slide-leave-to {
+  opacity: 0; /* transform: scale(1.2); */
 }
 .slide-content {
   height: 100%;
