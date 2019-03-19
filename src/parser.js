@@ -58,7 +58,7 @@ const parseMetaStyle = meta => {
   meta.bgStyle = [
     background,
     backgroundColor ? `background-color: ${backgroundColor}` : "",
-    backgroundImage ? `background-image: url(${backgroundColor})` : ""
+    backgroundImage ? `background-image: url(${backgroundImage})` : ""
   ]
     .filter(Boolean)
     .join("; ");
