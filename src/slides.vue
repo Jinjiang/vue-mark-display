@@ -4,7 +4,12 @@
 -->
 
 <template>
-  <transition-group tag="div" class="slides" name="slide" @click="catchPreview">
+  <transition-group
+    tag="div"
+    class="slides"
+    name="slide"
+    @click.native="catchPreview"
+  >
     <div
       v-for="(slide, index) in computedSlides"
       :key="index"

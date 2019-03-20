@@ -56,7 +56,8 @@ export default {
     autoFontSize: { type: Boolean, default: false },
     autoBaseUrl: { type: Boolean, default: false },
     keyboardCtrl: { type: Boolean, default: false },
-    urlHashCtrl: { type: Boolean, default: false }
+    urlHashCtrl: { type: Boolean, default: false },
+    supportPreview: { type: Boolean, default: false }
   },
   data() {
     const { markdown, src, page, autoFontSize, urlHashCtrl } = this;
@@ -93,7 +94,9 @@ export default {
     },
     // events
     preview({ url }) {
-      this.$refs.preview.$emit("preview", { url });
+      if (this.supportPreview) {
+        this.$refs.preview.$emit("preview", { url });
+      }
     },
     change({ page }) {
       this.goto(page);

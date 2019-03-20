@@ -91,7 +91,10 @@ Example:
   // whether support keyboard shortcuts (Arrows, Enter, Ctrl+G)
   keyboardCtrl: Boolean,
   // whether update URL hash when page changed
-  urlHashCtrl: Boolean
+  urlHashCtrl: Boolean,
+  // support opening an iframe on top of the page to preview a URL
+  // when click the `<a>` link with `altKey` pressed
+  supportPreview: Boolean
 }
 ```
 

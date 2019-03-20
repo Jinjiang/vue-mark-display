@@ -27,7 +27,7 @@ export default {
     }
   },
   created() {
-    this.$on("open", ({ url }) => {
+    this.$on("preview", ({ url }) => {
       this.visible = true;
       this.url = url;
     });

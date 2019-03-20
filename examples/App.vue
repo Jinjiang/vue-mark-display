@@ -4,6 +4,7 @@
     url-hash-ctrl
     auto-font-size
     base-url="http://github.com/"
+    support-preview
     :markdown="data"
     @title="setTitle"
   ></v-mark-display>
