@@ -24,7 +24,12 @@ export const genLoadingSlide = () => [
 ];
 
 // url hash ctrl
-export const setHash = page => location.replace(`#${page}`);
+export const setHash = page => {
+  // to avoid location go away when changing baseURL
+  const url = new URL(location.href);
+  url.hash = `#${page}`;
+  location.replace(url.href);
+};
 
 export const getHash = () => {
   const matched = location.hash.match(/^\#(\d+)$/);

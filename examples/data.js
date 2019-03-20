@@ -8,5 +8,5 @@ export default `
 
 <!-- backgroundColor: silver -->
 
-this is content
+![](./favicon.ico) this is content
 `.trim();

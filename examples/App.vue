@@ -3,6 +3,7 @@
     keyboard-ctrl
     url-hash-ctrl
     auto-font-size
+    base-url="http://github.com/"
     :markdown="data"
     @title="setTitle"
   ></v-mark-display>

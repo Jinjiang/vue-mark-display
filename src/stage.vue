@@ -52,7 +52,9 @@ export default {
     markdown: { type: String },
     src: { type: String },
     page: { type: Number },
+    baseUrl: { type: String },
     autoFontSize: { type: Boolean, default: false },
+    autoBaseUrl: { type: Boolean, default: false },
     keyboardCtrl: { type: Boolean, default: false },
     urlHashCtrl: { type: Boolean, default: false }
   },
@@ -119,6 +121,21 @@ export default {
     },
     goLast() {
       this.goto(this.slides.length);
+    },
+    checkBaseUrl() {
+      const { finalBaseUrl, baseElement } = this;
+      const attached = baseElement.parentNode === document.head;
+      if (finalBaseUrl) {
+        baseElement.setAttribute("href", finalBaseUrl);
+        if (!attached) {
+          document.head.appendChild(baseElement);
+        }
+      } else {
+        if (attached) {
+          document.head.removeChild(baseElement);
+        }
+        baseElement.removeAttribute("href");
+      }
     }
   },
   computed: {
@@ -142,16 +159,25 @@ export default {
     currentType() {
       const { currentMeta } = this;
       return currentMeta.type || "normal";
+    },
+    finalBaseUrl() {
+      const { baseUrl, autoBaseUrl, src } = this;
+      return baseUrl || (autoBaseUrl ? src : "");
     }
   },
   created() {
     const { title } = this;
     this.$emit("title", { title });
+    this.baseElement = document.createElement("base");
+    this.checkBaseUrl();
   },
   watch: {
     title() {
       const { title } = this;
       this.$emit("title", { title });
+    },
+    finalBaseUrl() {
+      this.checkBaseUrl();
     },
     currentPage(to, from) {
       const { slides, urlHashCtrl } = this;
