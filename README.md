@@ -66,7 +66,7 @@ Example:
 
 <!-- backgroundColor: silver -->
 
-this is content
+![./favicon.ico] this is content
 ```
 
 ## API
@@ -81,6 +81,11 @@ this is content
   src: String,
   // initial page number
   page: Number,
+  // set `baseUrl` for the whole document
+  // so all the relative URLs in markdown content would be applied
+  baseUrl: String,
+  // whether use `src` as the `baseUrl` automatically
+  autoBaseUrl: Boolean,
   // whether adjust font-size to adapt the screen size
   autoFontSize: Boolean,
   // whether support keyboard shortcuts (Arrows, Enter, Ctrl+G)
