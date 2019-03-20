@@ -201,6 +201,10 @@ export default {
 .stage {
   width: 100vw;
   height: 100vh;
+  line-height: 1.25;
+  background-color: #f5f5f5;
+  color: #444;
+  text-shadow: 0 0 0.25em #ccc;
 }
 </style>
 
@@ -215,23 +219,26 @@ p {
   margin: 0.25em 0;
   font-weight: 500;
 }
-
 li {
   text-align: initial;
-}
-img {
-  max-width: 100%;
-  max-height: 80vh;
 }
 blockquote {
   font-size: 0.75em;
   text-align: initial;
   background-color: rgba(127, 127, 127, 0.2);
-  padding: 1em;
+  padding: 0.25em 1em;
   border-radius: 0.25em;
 }
 pre {
   text-align: initial;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.5vw;
+  padding: 0 0.125em;
+}
+
+img {
+  max-width: 100%;
+  max-height: 80vh;
 }
 
 a {
@@ -248,6 +255,9 @@ a:hover {
   color: white;
 }
 
+small {
+  font-size: 0.6em;
+}
 strong {
   color: red;
 }
@@ -260,6 +270,10 @@ strike {
 }
 code {
   font-size: 0.75em;
+}
+mark {
+  border-radius: 0.5vw;
+  padding: 0 0.125em;
 }
 
 table {
