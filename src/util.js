@@ -127,6 +127,12 @@ export const resizeHandler = function() {
   vm.fontSize = parseFontSize();
 };
 
+export const hashHandler = function() {
+  if (this.urlHashCtrl) {
+    this.goto(parseInt(getHash(), 10));
+  }
+};
+
 // Make the actual CORS request.
 export const request = (url, cb) => {
   // All HTML5 Rocks properties support CORS.

@@ -29,6 +29,7 @@ import {
   genMixinGlobalEvents,
   keydownHandler,
   resizeHandler,
+  hashHandler,
   defaultFontSize,
   getHash,
   setHash,
@@ -46,7 +47,8 @@ export default {
   },
   mixins: [
     genMixinGlobalEvents("keydown", keydownHandler),
-    genMixinGlobalEvents("resize", resizeHandler)
+    genMixinGlobalEvents("resize", resizeHandler),
+    genMixinGlobalEvents("hashchange", hashHandler)
   ],
   props: {
     markdown: { type: String },
