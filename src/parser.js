@@ -30,7 +30,7 @@ const parseSlide = str => {
 
   const html = marked(content);
 
-  return { content, meta, html };
+  return { content, meta, html, visited: false };
 };
 
 // <!-- key: value --> -> { key: value }

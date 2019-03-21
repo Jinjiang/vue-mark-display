@@ -51,7 +51,7 @@ export default {
     change(page) {
       this.$emit("change", { page });
     },
-    getTitle({ visited, title }) {
+    getTitle({ visited, meta: { title } }) {
       const { adminMode } = this;
       const output = adminMode || visited ? title.substr(0, 20) : "";
       return output || "[slide]";
