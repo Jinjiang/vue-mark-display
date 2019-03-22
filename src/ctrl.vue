@@ -53,7 +53,7 @@ export default {
     },
     getTitle({ visited, meta: { title } }) {
       const { adminMode } = this;
-      const output = adminMode || visited ? title.substr(0, 20) : "";
+      const output = adminMode || visited ? title : "";
       return output || "[slide]";
     }
   }
@@ -95,6 +95,7 @@ export default {
 }
 .ctrl-list li {
   padding: 3px;
+  max-width: 30vw;
   list-style-position: inside;
   white-space: nowrap;
   text-overflow: ellipsis;
