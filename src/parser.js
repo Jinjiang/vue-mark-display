@@ -1,4 +1,9 @@
 import marked from "marked";
+import { highlight } from "./highlight";
+
+marked.setOptions({
+  highlight
+});
 
 export const parse = code => {
   const tokens = marked.lexer(code);

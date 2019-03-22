@@ -71,7 +71,9 @@ Example:
 
 ## API
 
-### Props
+### Default Export: the Component
+
+#### Props
 
 ```js
 {
@@ -98,14 +100,14 @@ Example:
 }
 ```
 
-### Events
+#### Events
 
 - `@change="func({ from, to })"`: when page changed
 - `@title="func({ title })"`: when title changed
 
-### Styles
+#### Styles
 
-The component `<v-markshow>` will cover full screen size by default. So maybe "normalizing" the body is a good choice:
+Firstly, maybe "normalizing" the body **by your own** is a good choice:
 
 ```css
 body {
@@ -114,9 +116,11 @@ body {
 }
 ```
 
-We also provide a group of default styles for common HTML tags which you can overwrite freely.
+because the component `<v-markshow>` will cover full screen size by default.
 
-And you can overwite the default transition style on each slides:
+The component would automatically inject a group of default styles for common HTML tags. You can overwrite that styles freely.
+
+Also you can overwite the default transition style below on each slides:
 
 ```css
 .slide {
@@ -143,3 +147,22 @@ And you can overwite the default transition style on each slides:
   opacity: 0;
 }
 ```
+
+To learn more about transitions on Vue, see [here](https://vuejs.org/v2/guide/transitions.html).
+
+### Named Export: `setHighlighter()`
+
+Set a centralized code highlighter.
+
+- **parameters:**
+  - `highlighter: function (code: string, lang: string): string`: the customized code highlighter from you
+- **examples:**
+
+  Take [`highlight.js`](https://highlightjs.org) for example:
+
+  ```js
+  import hljs from "highlight.js";
+  import "highlight.js/styles/github.css";
+  import { setHighlighter } from "../index";
+  setHighlighter((code, lang) => hljs.highlightAuto(code).value || code);
+  ```
