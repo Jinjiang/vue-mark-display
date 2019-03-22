@@ -1,56 +1,49 @@
 import marked from "marked";
 
-export const parse = code => code.split(/\n\s*-{3,}\s*\n/).map(parseSlide);
-
-// content, html, meta: { [kvPair], [flag] }
-// - [x] type
-// - [x] title
-// - [x] slideStyle
-// - [x] bgStyle
-// - [!] style
-// - [!] color
-// - [!] backgroundImage
-// - [!] backgroundColor
-// - [!] backgroundStyle
-const parseSlide = str => {
-  const matched = str.match(/(\<\!\-\-[\S\s]+\-\-\>\s*)*([\S\s]+)/);
-  let content = "";
-  const meta = {};
-
-  if (matched) {
-    content = matched[2];
-    if (matched[1]) {
-      parseMeta(matched[1], meta);
-    }
-  }
-
-  parseMetaStyle(meta);
-  parseMetaCover(meta, content);
-  parseMetaTitle(meta, content);
-
-  const html = marked(content);
-
-  return { content, meta, html, visited: false };
+export const parse = code => {
+  const tokens = marked.lexer(code);
+  const slides = splitTokens(tokens);
+  return slides;
 };
 
-// <!-- key: value --> -> { key: value }
-// <!-- flag --> -> { flag: '' }
-const parseMeta = (comment, meta) => {
-  const commentList = comment.match(/\<\!\-\-([\S\s]+?)\-\-\>/g);
-  commentList.forEach(comment => {
-    const kvPair = comment.match(/\<\!\-\-\s*(\S+)\s*\:\s*([\S\s]+?)\s*\-\-\>/);
-    if (kvPair) {
-      meta[kvPair[1]] = kvPair[2];
-      return;
-    }
-    const flag = comment.match(/\<\!\-\-\s*(\S+)\s*\-\-\>/);
-    if (flag) {
-      meta[flag[1]] = "";
+function splitTokens(tokens) {
+  const slides = [];
+  let current = createSlide();
+  tokens.forEach(token => {
+    if (token.type === "hr") {
+      resolveSlide(current);
+      slides.push(current);
+      current = createSlide();
+    } else {
+      if (token.type === "html") {
+        const kvPair = token.text.match(
+          /\<\!\-\-\s*(\S+)\s*\:\s*([\S\s]+?)\s*\-\-\>/
+        );
+        if (kvPair) {
+          current.meta[kvPair[1]] = kvPair[2];
+          return;
+        } else {
+          const flag = token.text.match(/\<\!\-\-\s*(\S+)\s*\-\-\>/);
+          if (flag) {
+            current.meta[flag[1]] = "";
+            return;
+          }
+        }
+      }
+      current.tokens.push(token);
     }
   });
-};
+  if (current.tokens.length) {
+    resolveSlide(current);
+    slides.push(current);
+  }
+  return slides;
+}
 
-const parseMetaStyle = meta => {
+function resolveSlide(slide) {
+  const { meta, tokens } = slide;
+
+  // style
   const { color, style, backgroundImage, backgroundColor, background } = meta;
   meta.slideStyle = [style, color ? `color: ${color}` : ""]
     .filter(Boolean)
@@ -62,16 +55,52 @@ const parseMetaStyle = meta => {
   ]
     .filter(Boolean)
     .join("; ");
-};
 
-const parseMetaCover = (meta, content) => {
-  if (!meta.type && content.match(/^\# /)) {
+  const firstToken = findFirstTextToken(tokens);
+  if (!firstToken.token) {
+    return;
+  }
+
+  // cover
+  if (
+    !meta.type &&
+    firstToken.token.type === "heading" &&
+    firstToken.token.depth === 1
+  ) {
     meta.type = "cover";
   }
-};
 
-const parseMetaTitle = (meta, content) => {
-  if (!meta.title) {
-    meta.title = content.replace(/^\#+ /, "").substr(0, content.search(/$/));
-  }
-};
+  // title
+  if (!meta.title) meta.title = firstToken.text;
+
+  const html = marked.parser(tokens);
+  slide.html = html;
+}
+
+function createSlide() {
+  const slide = { meta: {}, tokens: [], html: "" };
+  slide.tokens.links = {};
+  return slide;
+}
+
+function findFirstTextToken(tokens) {
+  const result = {};
+  tokens.some(token => {
+    const text = parseText(token.text || "");
+    if (text) {
+      result.token = token;
+      result.text = text;
+      return true;
+    }
+  });
+  return result;
+}
+
+function parseText(text) {
+  return text
+    .replace(/<\!\-\-(.|\s)*\-\-\>/g, "")
+    .replace(/\!\[([^\]]*)\]\([^\)]*\)/g, "$1")
+    .replace(/\[[^\]]*\]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
