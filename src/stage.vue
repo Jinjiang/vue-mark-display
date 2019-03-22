@@ -141,6 +141,12 @@ export default {
         }
         baseElement.removeAttribute("href");
       }
+    },
+    visit(page) {
+      const slide = this.slides[page - 1];
+      if (slide && !slide.visited) {
+        slide.visited = true;
+      }
     }
   },
   computed: {
@@ -171,10 +177,11 @@ export default {
     }
   },
   created() {
-    const { title } = this;
+    const { title, currentPage } = this;
     this.$emit("title", { title });
     this.baseElement = document.createElement("base");
     this.checkBaseUrl();
+    this.visit(currentPage);
   },
   watch: {
     title() {
@@ -185,14 +192,10 @@ export default {
       this.checkBaseUrl();
     },
     currentPage(to, from) {
-      const { slides, urlHashCtrl } = this;
-      const slide = slides[to - 1];
-      if (slide) {
-        slide.visited = true;
-      }
-      if (urlHashCtrl) {
+      if (this.urlHashCtrl) {
         setHash(to);
       }
+      this.visit(to);
       this.$emit("change", { from, to });
     }
   }
