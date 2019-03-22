@@ -211,3 +211,9 @@ export default {
 }
 </script>
 ```
+
+## Export into PDF
+
+![screenshot of export into PDF](pdf.png)
+
+You can print the slides simply by <kbd>CMD</kbd>+<kbd>P</kbd>. The page style has been automatically formated by [CSS page media](https://drafts.csswg.org/css-page/) & [fragmentation](https://drafts.csswg.org/css-break/) specs under the hook. Then just select "export to PDF" on the print dialog to finish it. That makes your slides easy to export and share on/off the internet.
