@@ -2,6 +2,10 @@
 
 A Vue Component for Markdown-based Slides.
 
+## Installation
+
+_not `npm publish`ed yet_
+
 ## Usage
 
 ```vue
@@ -188,7 +192,7 @@ You can using some open source touch event libs to bring touch controls into the
 
 <script>
 import Hammer from "hammerjs";
-import VMarkDisplay from "../index";
+import VMarkDisplay from "v-mark-display";
 export default {
   components: { VMarkDisplay },
   mounted() {
