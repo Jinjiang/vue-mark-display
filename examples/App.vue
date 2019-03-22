@@ -7,10 +7,12 @@
     support-preview
     :markdown="data"
     @title="setTitle"
+    ref="display"
   ></v-mark-display>
 </template>
 
 <script>
+import Hammer from "hammerjs";
 import VMarkDisplay from "../index";
 import data from "./data.js";
 
@@ -18,6 +20,23 @@ export default {
   components: { VMarkDisplay },
   data() {
     return { data };
+  },
+  mounted() {
+    const mc = new Hammer(this.$el);
+    const display = this.$refs.display;
+    mc.on("swipe", event => {
+      if (event.pointerType === "mouse") {
+        return;
+      }
+      switch (event.direction) {
+        case Hammer.DIRECTION_LEFT:
+          display.goNext();
+          return;
+        case Hammer.DIRECTION_RIGHT:
+          display.goPrev();
+          return;
+      }
+    });
   },
   methods: {
     setTitle({ title }) {

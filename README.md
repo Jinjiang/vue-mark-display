@@ -150,6 +150,16 @@ Also you can overwite the default transition style below on each slides:
 
 To learn more about transitions on Vue, see [here](https://vuejs.org/v2/guide/transitions.html).
 
+#### Methods
+
+With these methods you can call them outside through its [`ref`](https://vuejs.org/v2/api/#ref). For example on the bottom you can use them to support touchable screens.
+
+- `goto(page: number)`: go to a given page which is counted from `1` (not `0`)
+- `goNext()`: go to next page if possible
+- `goPrev()`: go to previous page if possible
+- `goFirst()`: go to the first page
+- `goLast()`: go to the last page
+
 ### Named Export: `setHighlighter()`
 
 Set a centralized code highlighter.
@@ -158,7 +168,7 @@ Set a centralized code highlighter.
   - `highlighter: function (code: string, lang: string): string`: the customized code highlighter from you
 - **examples:**
 
-  Take [`highlight.js`](https://highlightjs.org) for example:
+  Take [highlight.js](https://highlightjs.org) for example:
 
   ```js
   import hljs from "highlight.js";
@@ -166,3 +176,38 @@ Set a centralized code highlighter.
   import { setHighlighter } from "../index";
   setHighlighter((code, lang) => hljs.highlightAuto(code).value || code);
   ```
+
+## For Touchable Screen
+
+You can using some open source touch event libs to bring touch controls into the slides. For example the code below is using [Hammer.js](http://hammerjs.github.io) and methods `goNext()`/`goPrev()` to support `swipe` gestures:
+
+```html
+<template>
+  <v-mark-display ref="main" markdown="..." />
+</template>
+
+<script>
+import Hammer from "hammerjs";
+import VMarkDisplay from "../index";
+export default {
+  components: { VMarkDisplay },
+  mounted() {
+    const mc = new Hammer(this.$el);
+    const main = this.$refs.main;
+    mc.on("swipe", event => {
+      if (event.pointerType === 'mouse') {
+        return
+      }
+      switch (event.direction) {
+        case Hammer.DIRECTION_LEFT:
+          main.goNext();
+          return;
+        case Hammer.DIRECTION_RIGHT:
+          main.goPrev();
+          return;
+      }
+    });
+  },
+}
+</script>
+```
