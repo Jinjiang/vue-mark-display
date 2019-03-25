@@ -1,4 +1,4 @@
-# v-mark-display
+# vue-mark-display
 
 A Vue Component for Markdown-based Slides.
 
@@ -10,24 +10,24 @@ _not `npm publish`ed yet_
 
 ```vue
 <template>
-  <v-mark-display
+  <mark-display
     :markdown="markdown"
     @title="setTitle"
     keyboard-ctrl
     url-hash-ctrl
     auto-font-size
-  ></v-mark-display>
+  ></mark-display>
 </template>
 
 <script>
-import VMarkDisplay from "v-mark-display";
+import MarkDisplay from "vue-mark-display";
 
 const markdown = `# Hello World
 ----
 This is markshow`;
 
 export default {
-  components: { VMarkDisplay },
+  components: { MarkDisplay },
   data() {
     return { markdown };
   },

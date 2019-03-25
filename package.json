@@ -1,8 +1,8 @@
 {
-  "name": "v-mark-display",
+  "name": "vue-mark-display",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/v-mark-display.js",
+  "main": "dist/vue-mark-display.js",
   "files": [
     "dist"
   ],
