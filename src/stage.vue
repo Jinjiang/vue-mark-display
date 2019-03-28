@@ -57,6 +57,7 @@ export default {
     baseUrl: { type: String },
     autoFontSize: { type: Boolean, default: false },
     autoBaseUrl: { type: Boolean, default: false },
+    autoBlankTarget: { type: Boolean, default: false },
     keyboardCtrl: { type: Boolean, default: false },
     urlHashCtrl: { type: Boolean, default: false },
     supportPreview: { type: Boolean, default: false }
@@ -127,19 +128,58 @@ export default {
     goLast() {
       this.goto(this.slides.length);
     },
-    checkBaseUrl() {
-      const { finalBaseUrl, baseElement } = this;
-      const attached = baseElement.parentNode === document.head;
-      if (finalBaseUrl) {
-        baseElement.setAttribute("href", finalBaseUrl);
-        if (!attached) {
-          document.head.appendChild(baseElement);
-        }
+    initBaseElement() {
+      const defaultBaseElement = document.querySelector("head base");
+      const baseElement = defaultBaseElement || document.createElement("base");
+      this.defaultBaseHref = defaultBaseElement
+        ? baseElement.getAttribute("href") || ""
+        : "";
+      this.defaultBaseTarget = defaultBaseElement
+        ? baseElement.getAttribute("target") || ""
+        : "";
+      this.defaultBaseElement = defaultBaseElement;
+      this.baseElement = baseElement;
+      this.checkBaseElement();
+    },
+    checkBaseElement() {
+      // already has base element?
+      // - already has href?
+      // - already has target?
+      // props
+      // - has base href?
+      // - has base target?
+      // todo
+      // - create base element if not existed
+      // - (set or remove) (href or default href) and (target or default target)
+      // - if no href no target no element remove else attach
+      const {
+        finalBaseUrl,
+        autoBlankTarget,
+        baseElement,
+        defaultBaseElement,
+        defaultBaseHref,
+        defaultBaseTarget
+      } = this;
+      if (
+        (!finalBaseUrl || !autoBlankTarget || !defaultBaseElement) &&
+        baseElement.parentNode === document.head
+      ) {
+        document.head.removeChild(baseElement);
       } else {
-        if (attached) {
-          document.head.removeChild(baseElement);
+        const baseHref = finalBaseUrl || defaultBaseHref;
+        if (baseHref) {
+          baseElement.setAttribute("href", baseHref);
+        } else {
+          baseElement.removeAttribute("href");
         }
-        baseElement.removeAttribute("href");
+        const baseTarget =
+          (autoBlankTarget ? "_blank" : "") || defaultBaseTarget;
+        if (baseTarget) {
+          baseElement.setAttribute("target", baseTarget);
+        } else {
+          baseElement.removeAttribute("target");
+        }
+        document.head.appendChild(baseElement);
       }
     },
     visit(page) {
@@ -179,8 +219,7 @@ export default {
   created() {
     const { title, currentPage } = this;
     this.$emit("title", { title });
-    this.baseElement = document.createElement("base");
-    this.checkBaseUrl();
+    this.initBaseElement();
     this.visit(currentPage);
   },
   watch: {
@@ -188,8 +227,11 @@ export default {
       const { title } = this;
       this.$emit("title", { title });
     },
+    autoBlankTarget() {
+      this.checkBaseElement();
+    },
     finalBaseUrl() {
-      this.checkBaseUrl();
+      this.checkBaseElement();
     },
     currentPage(to, from) {
       if (this.urlHashCtrl) {

@@ -4,6 +4,8 @@ export default `
 
 # Hello
 
+[homepage](/)
+
 ----
 
 <!-- backgroundColor: silver -->

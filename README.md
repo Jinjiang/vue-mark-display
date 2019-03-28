@@ -16,6 +16,7 @@ _not `npm publish`ed yet_
     keyboard-ctrl
     url-hash-ctrl
     auto-font-size
+    auto-blank-target
   ></mark-display>
 </template>
 
@@ -92,6 +93,8 @@ Example:
   baseUrl: String,
   // whether use `src` as the `baseUrl` automatically
   autoBaseUrl: Boolean,
+  // whether open links in a blank target by default
+  autoBlankTarget: Boolean,
   // whether adjust font-size to adapt the screen size
   autoFontSize: Boolean,
   // whether support keyboard shortcuts (Arrows, Enter, Ctrl+G)

@@ -3,6 +3,7 @@
     keyboard-ctrl
     url-hash-ctrl
     auto-font-size
+    auto-blank-target
     base-url="http://github.com/"
     support-preview
     :markdown="data"
