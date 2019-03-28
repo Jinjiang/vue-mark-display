@@ -177,7 +177,7 @@ Set a centralized code highlighter.
   ```js
   import hljs from "highlight.js";
   import "highlight.js/styles/github.css";
-  import { setHighlighter } from "../index";
+  import { setHighlighter } from "v-mark-display";
   setHighlighter((code, lang) => hljs.highlightAuto(code).value || code);
   ```
 
