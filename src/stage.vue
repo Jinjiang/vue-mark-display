@@ -249,9 +249,11 @@ export default {
   width: 100vw;
   height: 100vh;
   line-height: 1.25;
-  background-color: #f5f5f5;
   color: #444;
   text-shadow: 0 0 0.25em #ccc;
+  background-color: #f5f5f5;
+  background-size: cover;
+  background-position: center;
 }
 </style>
 

@@ -49,17 +49,24 @@ function resolveSlide(slide) {
   const { meta, tokens } = slide;
 
   // style
-  const { color, style, backgroundImage, backgroundColor, background } = meta;
-  meta.slideStyle = [style, color ? `color: ${color}` : ""]
-    .filter(Boolean)
-    .join("; ");
-  meta.bgStyle = [
+  const {
     background,
+    backgroundColor,
+    backgroundImage,
+    color,
+    style,
+    stageBackground
+  } = meta;
+  meta.slideStyle = [
+    background ? `background: ${background}` : "",
     backgroundColor ? `background-color: ${backgroundColor}` : "",
-    backgroundImage ? `background-image: url(${backgroundImage})` : ""
+    backgroundImage ? `background-image: url(${backgroundImage})` : "",
+    color ? `color: ${color}` : "",
+    style
   ]
     .filter(Boolean)
     .join("; ");
+  meta.bgStyle = stageBackground || "";
 
   // first token
   const firstToken = findFirstTextToken(tokens);

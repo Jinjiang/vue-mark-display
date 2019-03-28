@@ -53,11 +53,12 @@ body {
 1. It's based on [marked](https://www.npmjs.com/package/marked).
 2. You can separate pages by horizon lines (`----`).
 3. You can use HTML comments for meta info of each slides. The format is like `<!-- key: value -->`. Here are all useful meta keys below:
-   - `color`: default font color of the slide
+   - `background`: the background style of the slide
+   - `backgroundColor`: the background color of the slide
+   - `backgroundImage`: URL of the background image of the slide
+   - `color`: the default font color of the slide
    - `style`: inline css text attached to the slide
-   - `backgroundImage`: background image of the stage when the current slide is shown
-   - `backgroundColor`: background color of the stage when the current slide is shown
-   - `background`: inline css text attached to the stage when the current slide is shown
+   - `stageBackground`: the background style attached to the stage when the current slide is shown
 
 Example:
 
@@ -69,7 +70,7 @@ Example:
 
 ---
 
-<!-- backgroundColor: silver -->
+<!-- stageBackground: silver -->
 
 ![./favicon.ico] this is content
 ```
@@ -224,3 +225,5 @@ export default {
 ![screenshot of export into PDF](pdf.png)
 
 You can print the slides simply by <kbd>CMD</kbd>+<kbd>P</kbd>. The page style has been automatically formated by [CSS page media](https://drafts.csswg.org/css-page/) & [fragmentation](https://drafts.csswg.org/css-break/) specs under the hook. Then just select "export to PDF" on the print dialog to finish it. That makes your slides easy to export and share on/off the internet.
+
+_Notice that when you print the slides, only current screen-displayed `stageBackground` meta info is active. So it would be applied to all pages of the exported PDF._

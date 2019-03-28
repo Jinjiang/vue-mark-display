@@ -8,7 +8,7 @@ export default `
 
 ----
 
-<!-- backgroundColor: silver -->
+<!-- stageBackground: silver -->
 
 ![](./favicon.ico) this is content
 
