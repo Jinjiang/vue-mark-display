@@ -17,4 +17,11 @@ Here is the code:
 \`\`\` html
 <div>Hello</div>
 \`\`\`
+
+----
+
+| a | b |
+| ---- | ---- |
+| 1 | 2 |
+| 3 | 4 |
 `.trim();

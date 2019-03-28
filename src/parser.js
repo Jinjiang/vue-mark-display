@@ -61,22 +61,21 @@ function resolveSlide(slide) {
     .filter(Boolean)
     .join("; ");
 
+  // first token
   const firstToken = findFirstTextToken(tokens);
-  if (!firstToken.token) {
-    return;
-  }
+  if (firstToken.token) {
+    // cover
+    if (
+      !meta.type &&
+      firstToken.token.type === "heading" &&
+      firstToken.token.depth === 1
+    ) {
+      meta.type = "cover";
+    }
 
-  // cover
-  if (
-    !meta.type &&
-    firstToken.token.type === "heading" &&
-    firstToken.token.depth === 1
-  ) {
-    meta.type = "cover";
+    // title
+    if (!meta.title) meta.title = firstToken.text;
   }
-
-  // title
-  if (!meta.title) meta.title = firstToken.text;
 
   const html = marked.parser(tokens);
   slide.html = html;

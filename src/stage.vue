@@ -285,6 +285,7 @@ table {
   border-collapse: collapse;
   margin: 0.25em 0;
   background-color: white;
+  font-size: inherit;
 }
 th,
 td {
