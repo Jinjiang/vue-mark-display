@@ -2567,8 +2567,7 @@ grapheme-breaker@^0.3.2:
 
 hammerjs@^2.0.8:
   version "2.0.8"
-  resolved "http://registry.npm.taobao.org/hammerjs/download/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
-  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
 
 has-ansi@^2.0.0:
   version "2.0.0"
@@ -2653,8 +2652,7 @@ hex-color-regex@^1.1.0:
 
 highlight.js@^9.15.6:
   version "9.15.6"
-  resolved "http://registry.npm.taobao.org/highlight.js/download/highlight.js-9.15.6.tgz#72d4d8d779ec066af9a17cb14360c3def0aa57c4"
-  integrity sha1-ctTY13nsBmr5oXyxQ2DD3vCqV8Q=
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.15.6.tgz#72d4d8d779ec066af9a17cb14360c3def0aa57c4"
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
