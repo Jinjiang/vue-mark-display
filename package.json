@@ -1,11 +1,20 @@
 {
   "name": "vue-mark-display",
   "version": "0.1.0",
-  "description": "",
+  "description": "a Vue Component to generate Markdown-based slides",
   "main": "dist/vue-mark-display.js",
   "files": [
     "dist"
   ],
+  "homepage": "https://github.com/jinjiang/vue-mark-display#readme",
+  "bugs": {
+    "email": "zhaojinjiang@me.com",
+    "url": "https://github.com/jinjiang/vue-mark-display/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Jinjiang/v-mark-display.git"
+  },
   "scripts": {
     "dev": "rm -Rf dist && rollup -c -w",
     "build": "rm -Rf dist && rollup -c --environment BUILD:production",
@@ -13,7 +22,11 @@
     "examples:build": "rm -Rf docs && parcel build examples/index.html --public-url ./ -d docs",
     "lint": "prettier --write .{,/examples,/src}/*.{js,json,css,md,vue}"
   },
-  "keywords": [],
+  "keywords": [
+    "vue",
+    "markdown",
+    "slides"
+  ],
   "author": "Jinjiang <zhaojinjiang@me.com>",
   "license": "MIT",
   "devDependencies": {

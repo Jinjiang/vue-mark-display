@@ -1,10 +1,12 @@
 # vue-mark-display
 
-A Vue Component for Markdown-based Slides.
+A Vue Component to generate Markdown-based slides.
 
 ## Installation
 
-_not `npm publish`ed yet_
+```bash
+npm install vue-mark-display
+```
 
 ## Usage
 
@@ -25,7 +27,7 @@ import MarkDisplay from "vue-mark-display";
 
 const markdown = `# Hello World
 ----
-This is markshow`;
+This is Vue Mark Display`;
 
 export default {
   components: { MarkDisplay },
@@ -124,7 +126,7 @@ body {
 }
 ```
 
-because the component `<v-markshow>` will cover full screen size by default.
+because the component `<mark-display>` will cover full screen size by default.
 
 The component would automatically inject a group of default styles for common HTML tags. You can overwrite that styles freely.
 
@@ -191,14 +193,14 @@ You can using some open source touch event libs to bring touch controls into the
 
 ```html
 <template>
-  <v-mark-display ref="main" markdown="..." />
+  <mark-display ref="main" markdown="..." />
 </template>
 
 <script>
 import Hammer from "hammerjs";
-import VMarkDisplay from "v-mark-display";
+import MarkDisplay from "vue-mark-display";
 export default {
-  components: { VMarkDisplay },
+  components: { MarkDisplay },
   mounted() {
     const mc = new Hammer(this.$el);
     const main = this.$refs.main;
