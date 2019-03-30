@@ -1,5 +1,5 @@
 <template>
-  <v-mark-display
+  <mark-display
     keyboard-ctrl
     url-hash-ctrl
     auto-font-size
@@ -9,16 +9,17 @@
     :markdown="data"
     @title="setTitle"
     ref="display"
-  ></v-mark-display>
+  ></mark-display>
 </template>
 
 <script>
 import Hammer from "hammerjs";
-import VMarkDisplay from "../index";
+// import MarkDisplay from "vue-mark-display";
+import MarkDisplay from "../index";
 import data from "./data.js";
 
 export default {
-  components: { VMarkDisplay },
+  components: { MarkDisplay },
   data() {
     return { data };
   },
