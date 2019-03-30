@@ -181,7 +181,7 @@ Set a centralized code highlighter.
   ```js
   import hljs from "highlight.js";
   import "highlight.js/styles/github.css";
-  import { setHighlighter } from "v-mark-display";
+  import { setHighlighter } from "vue-mark-display";
   setHighlighter((code, lang) => hljs.highlightAuto(code).value || code);
   ```
 
