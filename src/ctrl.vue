@@ -8,10 +8,11 @@
 <template>
   <div class="ctrl">
     <transition name="ctrl-list">
-      <ol v-if="visible" class="ctrl-list">
+      <ol v-if="visible" class="ctrl-list" ref="list">
         <li
           v-for="(slide, index) in computedSlides"
           :key="index"
+          ref="items"
           :class="{ current: computedCurrentPage === index + 1 }"
           @click="change(index + 1);"
         >
@@ -42,6 +43,14 @@ export default {
       mounted: false
     };
   },
+  updated() {
+    if (this.visible && this.$refs.items) {
+      const currentElement = this.$refs.items[this.computedCurrentPage - 1];
+      if (currentElement) {
+        currentElement.scrollIntoView();
+      }
+    }
+  },
   methods: {
     toggle(event) {
       this.visible = !this.visible;
@@ -71,6 +80,11 @@ export default {
 }
 .ctrl:hover {
   opacity: 1;
+}
+@media print {
+  .ctrl {
+    display: none;
+  }
 }
 .ctrl-btn {
   display: block;
