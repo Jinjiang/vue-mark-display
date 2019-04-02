@@ -15,10 +15,10 @@ this is a intro about `vue-mark-display`
 
 ```html
 <script>
-  import MarkDisplay from "vue-mark-display";
-  export default {
-    components: { MarkDisplay }
-  };
+import MarkDisplay from "vue-mark-display"
+export default {
+  components: { MarkDisplay }
+}
 </script>
 ```
 
@@ -63,7 +63,7 @@ You can also do some extensions by your own:
 
 ---
 
-1. set your code highlighted
+1) set your code highlighted
 
 ```js
 export default {
@@ -77,7 +77,7 @@ export default {
 
 ---
 
-2. or support touch events
+2) or support touch events
 
 Try to **SWIPE horizontally** on the touch screen.
 
@@ -85,13 +85,13 @@ Try to **SWIPE horizontally** on the touch screen.
 
 <!-- style: color: blue; font-family: monospace; -->
 
-3. custom background using meta syntax
+3) custom background using meta syntax
 
 `<!-- style: color: blue; font-family: monospace; -->`
 
 ---
 
-4. reset base url
+4) reset base url
 
 ```html
 <MarkDisplay
