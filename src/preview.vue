@@ -1,8 +1,3 @@
-<!--
-  - emit: open(url)
-  - data: visible, url
--->
-
 <template>
   <transition name="preview">
     <div v-if="visible" class="preview">
@@ -36,7 +31,7 @@ export default {
 </script>
 
 <style>
-.preview {
+.mark-display .preview {
   transition: opacity 0.3s, transform 0.3s;
   position: absolute;
   left: 5%;
@@ -45,20 +40,20 @@ export default {
   bottom: 5%;
   background-color: white;
 }
-.preview-enter {
+.mark-display .preview-enter {
   opacity: 0;
   transform: scale(0.5);
 }
-.preview-leave-to {
+.mark-display .preview-leave-to {
   opacity: 0;
   transform: scale(0.5);
 }
-.preview-btn {
+.mark-display .preview-btn {
   position: absolute;
   right: 0;
   top: -2em;
 }
-.preview-main {
+.mark-display .preview-main {
   width: 100%;
   height: 100%;
   padding: 0;

@@ -1,10 +1,3 @@
-<!--
-  - inject: current, slides
-  - data: visible, adminMode
-  - methods: toggle(), change(page)
-  - events: change({ page })
--->
-
 <template>
   <div class="ctrl">
     <transition name="ctrl-list">
@@ -70,7 +63,7 @@ export default {
 </script>
 
 <style>
-.ctrl {
+.mark-display .ctrl {
   position: absolute;
   left: 20px;
   bottom: 20px;
@@ -78,26 +71,26 @@ export default {
   opacity: 0.5;
   transition: opacity 0.3s;
 }
-.ctrl:hover {
+.mark-display .ctrl:hover {
   opacity: 1;
 }
 @media print {
-  .ctrl {
+  .mark-display .ctrl {
     display: none;
   }
 }
-.ctrl-btn {
+.mark-display .ctrl-btn {
   display: block;
 }
-.ctrl-list-enter {
+.mark-display .ctrl-list-enter {
   opacity: 0;
   transform: translateY(20px);
 }
-.ctrl-list-leave-to {
+.mark-display .ctrl-list-leave-to {
   opacity: 0;
   transform: translateY(20px);
 }
-.ctrl-list {
+.mark-display .ctrl-list {
   transition: opacity 0.3s, transform 0.3s;
   overflow: auto;
   width: 160px;
@@ -107,7 +100,7 @@ export default {
   padding: 3px;
   background-color: white;
 }
-.ctrl-list li {
+.mark-display .ctrl-list li {
   padding: 3px;
   max-width: 30vw;
   list-style-position: inside;
@@ -115,10 +108,10 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.ctrl-list li:hover {
+.mark-display .ctrl-list li:hover {
   background-color: #f0f0f0;
 }
-.ctrl-list li.current {
+.mark-display .ctrl-list li.current {
   background-color: silver;
   color: white;
 }

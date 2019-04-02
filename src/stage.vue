@@ -1,16 +1,7 @@
-<!--
-  - props: markdown, page, autoFontSize, keyboardCtrl, urlHashCtrl
-  - data: slides[{ html, meta{ bg, type }, visited }], current, fontSize
-  - provide: current, slides
-  - methods: goto({ page }), goNext(), goPrev(), goFirst(), goLast()
-  - computed: currentBg, currentType
-  - events: change({ from, to })
--->
-
 <template>
   <div
-    class="v-mark-display stage"
-    :class="[`stage-${currentType}`]"
+    class="mark-display stage"
+    :class="[`type-${currentType}`, `theme-${theme || 'default'}`]"
     :style="[`font-size: ${fontSize}px`, currentBg].join('; ')"
   >
     <m-slides @preview="preview" :current="currentPage"></m-slides>
@@ -55,6 +46,7 @@ export default {
     src: { type: String },
     page: { type: Number },
     baseUrl: { type: String },
+    theme: { type: String },
     autoFontSize: { type: Boolean, default: false },
     autoBaseUrl: { type: Boolean, default: false },
     autoBlankTarget: { type: Boolean, default: false },
@@ -245,7 +237,7 @@ export default {
 </script>
 
 <style>
-.stage {
+.mark-display {
   width: 100vw;
   height: 100vh;
   line-height: 1.25;
@@ -254,98 +246,5 @@ export default {
   background-color: #f5f5f5;
   background-size: cover;
   background-position: center;
-}
-</style>
-
-<style>
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0.25em 0;
-  font-weight: 500;
-}
-li {
-  text-align: initial;
-}
-blockquote {
-  font-size: 0.75em;
-  text-align: initial;
-  background-color: rgba(127, 127, 127, 0.2);
-  padding: 0.25em 1em;
-  border-radius: 0.25em;
-}
-pre {
-  text-align: initial;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 0.5vw;
-  padding: 0 0.125em;
-}
-
-img {
-  max-width: 100%;
-  max-height: 80vh;
-}
-
-a {
-  font-size: 0.75em;
-  padding: 0.125em 0.25em;
-  background-color: gray;
-  color: white;
-  border-radius: 0.25em;
-  transition: all 0.3s;
-  text-decoration: none;
-}
-a:hover {
-  background-color: blue;
-  color: white;
-}
-
-small {
-  font-size: 0.6em;
-}
-strong {
-  color: red;
-}
-em {
-  color: blue;
-}
-s,
-strike {
-  color: gray;
-}
-code {
-  font-size: 0.75em;
-}
-mark {
-  border-radius: 0.5vw;
-  padding: 0 0.125em;
-}
-
-table {
-  border-collapse: collapse;
-  margin: 0.25em 0;
-  background-color: white;
-  font-size: inherit;
-}
-th,
-td {
-  border: 1px solid gray;
-  padding: 0.25em;
-}
-thead {
-  background-color: #f0f0f0;
-}
-tbody > tr:nth-child(2n) {
-  background-color: #f0f0f0;
-}
-
-hr {
-  width: 90%;
-  border-width: 2px;
-  border-style: dashed;
 }
 </style>

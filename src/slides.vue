@@ -1,8 +1,3 @@
-<!--
-  - inject: current, slides
-  - events: preview({ url })
--->
-
 <template>
   <transition-group
     tag="div"
@@ -49,14 +44,20 @@ export default {
 
 <style>
 .slide {
-  transform-origin: center center;
-  transition: all 0.3s;
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: all 0.3s;
 }
+.slide-enter {
+  opacity: 0;
+}
+.slide-leave-to {
+  opacity: 0;
+}
+
 @page {
   size: legal landscape;
   margin: 0;
@@ -64,24 +65,18 @@ export default {
 @media print {
   .slide {
     break-after: always;
-    width: 100vw;
-    height: 100vh;
+    page-break-after: always;
     overflow: hidden;
     position: relative;
     display: block !important;
     opacity: 1 !important;
   }
 }
-.slide-enter {
-  opacity: 0; /* transform: scale(0.8); */
-}
-.slide-leave-to {
-  opacity: 0; /* transform: scale(1.2); */
-}
+
 .slide-content {
-  height: 100%;
+  height: 100vh;
   box-sizing: border-box;
-  padding: 5%;
+  padding: 5vh 5vw;
   display: flex;
   flex-direction: column;
   align-items: center;
