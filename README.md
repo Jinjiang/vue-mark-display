@@ -117,7 +117,30 @@ Example:
 
 #### Styles
 
-Firstly, maybe "normalizing" the body **by your own** is a good choice:
+The root element of the `<mark-display>` component has a class named `mark-display` which you can use for styling.
+
+Also you can overwite the default transition style below on each slides:
+
+```css
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: all 0.3s;
+}
+.slide-enter {
+  opacity: 0;
+}
+.slide-leave-to {
+  opacity: 0;
+}
+```
+
+To learn more about transitions on Vue, see [here](https://vuejs.org/v2/guide/transitions.html).
+
+At the end, it's a good choice to "normalizing" the body **by your own**:
 
 ```css
 body {
@@ -126,39 +149,9 @@ body {
 }
 ```
 
-because the component `<mark-display>` will cover full screen size by default.
+And feel free to set other styles for common HTML tags as you like.
 
-The component would automatically inject a group of default styles for common HTML tags. You can overwrite that styles freely.
-
-Also you can overwite the default transition style below on each slides:
-
-```css
-.slide {
-  transform-origin: center center;
-  transition: all 0.3s;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-.slide-enter {
-  /* the begining of slide enter */
-  opacity: 0;
-}
-.slide-enter-to {
-  /* the ending of slide enter */
-}
-.slide-leave {
-  /* the begining of slide leave */
-}
-.slide-leave-to {
-  /* the ending of slide leave */
-  opacity: 0;
-}
-```
-
-To learn more about transitions on Vue, see [here](https://vuejs.org/v2/guide/transitions.html).
+If you want to customize other styles in the component, please be careful. Because they are not guaranteed which means they may be changed in the future.
 
 #### Methods
 
@@ -184,7 +177,7 @@ Set a centralized code highlighter.
   import hljs from "highlight.js";
   import "highlight.js/styles/github.css";
   import { setHighlighter } from "vue-mark-display";
-  setHighlighter((code, lang) => hljs.highlightAuto(code).value || code);
+  setHighlighter(code => hljs.highlightAuto(code).value);
   ```
 
 ## For Touchable Screen
