@@ -1,6 +1,6 @@
 {
   "name": "vue-mark-display",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "a Vue Component to generate Markdown-based slides",
   "main": "dist/vue-mark-display.js",
   "files": [
