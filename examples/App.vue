@@ -56,6 +56,7 @@ body {
   color: #2c3e50;
   background-color: #f5f5f5;
   text-shadow: 0 0 0.25em #ccc;
+  line-height: 1.25;
 }
 
 h1,
