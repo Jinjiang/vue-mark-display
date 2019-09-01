@@ -80,7 +80,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
   justify-content: center;
   transition: background 0.3s;
   background-repeat: no-repeat;
