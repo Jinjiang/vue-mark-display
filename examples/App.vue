@@ -16,7 +16,7 @@
 import Hammer from "hammerjs";
 // import MarkDisplay from "vue-mark-display";
 import MarkDisplay from "../index";
-import welcome from "./welcome.md";
+import welcome from "./welcome.txt";
 
 export default {
   components: { MarkDisplay },
