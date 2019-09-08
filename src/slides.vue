@@ -7,7 +7,6 @@
   >
     <div
       v-for="(slide, index) in computedSlides"
-      :key="index"
       v-show="computedCurrentPage === index + 1"
       class="slide"
     >
