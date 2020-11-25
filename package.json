@@ -34,7 +34,7 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "hammerjs": "^2.0.8",
-    "highlight.js": "^9.15.10",
+    "highlight.js": "^10.1.2",
     "husky": "^3.0.5",
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.18.2",
