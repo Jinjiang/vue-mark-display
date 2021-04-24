@@ -159,7 +159,7 @@ export const request = (url, cb) => {
 
 // Create the XHR object.
 const createCORSRequest = (method, url) => {
-  const xhr = new XMLHttpRequest();
+  let xhr = new XMLHttpRequest();
   if ("withCredentials" in xhr) {
     // XHR for Chrome/Firefox/Opera/Safari.
     xhr.open(method, url, true);
