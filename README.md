@@ -198,8 +198,8 @@ export default {
     const mc = new Hammer(this.$el);
     const main = this.$refs.main;
     mc.on("swipe", event => {
-      if (event.pointerType === 'mouse') {
-        return
+      if (event.pointerType === "mouse") {
+        return;
       }
       switch (event.direction) {
         case Hammer.DIRECTION_LEFT:
@@ -210,8 +210,8 @@ export default {
           return;
       }
     });
-  },
-}
+  }
+};
 </script>
 ```
 

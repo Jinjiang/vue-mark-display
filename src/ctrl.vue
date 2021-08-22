@@ -7,7 +7,7 @@
           :key="index"
           ref="items"
           :class="{ current: computedCurrentPage === index + 1 }"
-          @click="change(index + 1);"
+          @click="change(index + 1)"
         >
           {{ getTitle(slide) }}
         </li>
