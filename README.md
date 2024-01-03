@@ -1,5 +1,7 @@
 # vue-mark-display
 
+> This repo is not under maintenance anymore. You can refer to a similar project called [Slidev](https://sli.dev/).
+
 A Vue Component to generate Markdown-based slides.
 
 ## Installation
